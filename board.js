@@ -109,4 +109,34 @@ export default class Board {
     return coordinates;
   }
 
+  generateListOfRandomMoves(){
+    const randomMoves = [];
+
+    Array.prototype.swap = function (x,y) {
+      var b = this[x];
+      this[x] = this[y];
+      this[y] = b;
+      return this;
+    }
+
+
+    //Create ordered list 
+    for(let i = 0; i < this.numRows; i++){
+      for(let j = 0; j < this.numCols; j++){
+        randomeMoves.push([i,j]);
+      }
+    }
+
+    //Shuffle the order.
+    for(let r = 0; r < (this.numRows * this.numCols); r++){
+      let tempIndex = getRandomInteger(0, this.numRows);
+      randomeMoves.swap(r, tempIndex);      
+    }
+
+    return randomMoves;
+  }
+
+    
+
+  
 }
