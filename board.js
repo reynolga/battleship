@@ -23,9 +23,9 @@ export default class Board {
   }
 
   isAnyShipsInBoardPositions(posList){
-    const [x,y] = posList;
-
+    
     for(pos of posList) {
+      const [x,y] = pos;
       if(isAnyShipInBoardPosition(x,y)) {return true;}
     }
     return false;
@@ -42,8 +42,9 @@ export default class Board {
       let failSafeCounter = 0;
 
       while(!shipPlaced)
-        const [startX, startY] = [getRandomInteger(0, this.numRows - ship.length), getRandomInteger(0, this.numCols - ship.length)];
-        let shipCoordinates = generateCoordinates(startX, startY, ship.length, generateRandomDirection());
+        const direction = generateRandomDirection();        
+        const [startX, startY] = getStartCoordinates(direction, ship.shipLength);
+        let shipCoordinates = generateCoordinates(startX, startY, ship.length, direction);
         let isAlreadyOccupied = !isAnyShipsInBoardPositions(shipCoordinates);
 
         if(!isAlreadyOccupied) {
@@ -59,6 +60,16 @@ export default class Board {
     }  
   }
 
+  getStartCoordinates(direction, shipLength){
+    if(direction === 'horizontal')
+    {
+      return [getRandomInteger(0, this.numRows - shipLength), getRandomInteger(0, this.numCols)];
+    }
+    else {
+      return [getRandomInteger(0, this.numRows), getRandomInteger(0, this.numCols - shipLength)];
+    }
+  }
+
   getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
@@ -66,10 +77,11 @@ export default class Board {
   generateRandomDirection() {  
     x = (Math.floor(Math.random() * 2) == 0);
     if(x){
-        flip('horizontal');
+        return 'horizontal';
     }else{
-        flip('vertical');
+        return 'vertical';
     }
+    return '';
   }
 
   generateCoordinates(posX, posY, shipLength, direction) //startPosition is [x,y]
@@ -90,11 +102,5 @@ export default class Board {
     
     return coordinates;
   }
-
-
-
-
-
-
 
 }
