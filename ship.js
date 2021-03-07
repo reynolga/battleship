@@ -8,7 +8,6 @@ export default class Ship {
   }
 
   isShipInPosition(aPosition) {
-
     if(aPosition.length != 2 || aPosition == Undefined) { 
       console.error(`Wrong or unexpected position array: ${aPosition}`);
       return false;
@@ -28,5 +27,5 @@ export default class Ship {
     return this.hits.length == this.positionArray.length;
   }   
 
-  }
+  };
 
