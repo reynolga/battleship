@@ -9,6 +9,12 @@ export default class Board {
     this.shipList = [];   // List of game ships
     this.moveList = [];   // { Position = [x,y] Hit = '', 'x', 'o'
   }
+  
+  initializeShips(shipList)
+  {
+    this.shipList = Json.fromJson(Json.stringify(shipList)); //Need to copy the data. Don't want a reference
+    placeShipsAtRandom();
+  }
 
   isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
 
