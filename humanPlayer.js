@@ -23,10 +23,9 @@ export default class HumanPlayer {
     
     //Check for game command, like 'q' for quit
     if(this.gameCommands.has(input)) {return input; }
+    
+    let [attackX, attackY] = parseInput(input);
 
-    let aInput = input.match(/[^\d()]+|[\d.]+/g);  
-    let [attackX, attackY] = [parseInt(aInput[0]), parseInt(aInput[2])];
-       
     if((attackX != NaN || 
        attackY != Nan || 
        !this.board.hasMoveBeenPlayed([attackX, attackY]))) { //try again
@@ -39,5 +38,21 @@ export default class HumanPlayer {
 
     return [undefined, undefined];
   }
-  
+ 
+  parseInput(input) {
+
+    //Convert 1,2 => [1, 2]
+    let aInput = input.split(',');  
+    let [attackX, attackY] = [parseInt(aInput[0]), parseInt(aInput[1])];
+    return [attackX, attackY];
+  }
+
+  fireShots(coordinates){
+    return this.board.shotsFired(coordinates);
+  }
+
+  movePlayed(move){
+    this.moveList.add(move); 
+  }
 }
+

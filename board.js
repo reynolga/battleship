@@ -37,6 +37,21 @@ export default class Board {
     return false;
   }
 
+  shotsFired(attackPos){
+    let isHit = false;
+
+    for(ship of this.shipList)
+    {
+      if(ship.isShipInPosition(attackPos))
+      {
+        fireShotAtBoat(attackPos);
+        isHit = true;
+      }
+    }
+
+    return isHit;
+  }
+
   isGameOver() {
     const numSunkShips = this.shipList.reduce((ship) => { return ship.isShipSunk()});
     return numSunkShips == this.shipList.length;
@@ -119,7 +134,6 @@ export default class Board {
       return this;
     }
 
-
     //Create ordered list 
     for(let i = 0; i < this.numRows; i++){
       for(let j = 0; j < this.numCols; j++){
@@ -128,8 +142,9 @@ export default class Board {
     }
 
     //Shuffle the order.
-    for(let r = 0; r < (this.numRows * this.numCols); r++){
-      let tempIndex = getRandomInteger(0, this.numRows);
+    let totalNumbers = this.numRows * this.numCols;
+    for(let r = 0; r < (totalNumbers); r++){
+      let tempIndex = getRandomInteger(0, totalNumbers);
       randomMoves.swap(r, tempIndex);      
     }
 
