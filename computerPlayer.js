@@ -1,6 +1,6 @@
-import HumanPlayer from './humanPlayer.js';
+//const HumanPlayer = requires('./humanPlayer.js');
 
-export default class ComputerPlayer extends HumanPlayer {  
+class ComputerPlayer extends HumanPlayer {  
   constructor(playerName, boardPrototype, gameShipList, gameMoves, gameCommands) {
     super(playerName, boardPrototype, gameShipList, gameCommands);
     this.gameMoves = new Set(gameMoves).values();

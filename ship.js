@@ -1,4 +1,4 @@
-export default class Ship {
+class Ship {
 
   constructor(shipName, shipLength){
     this.shipName = shipName; 

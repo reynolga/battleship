@@ -1,6 +1,6 @@
-import Ship from './ship.js';
+const Ship = require('./ship.js');
 
-export default class ShipBuilder {
+class ShipBuilder {
   constructor() {}
 
   buildGameShips(){

@@ -1,5 +1,5 @@
 
-export default class Move {
+class Move {
   constructor(posX, posY, hit)
   {
     this.posX = posX;

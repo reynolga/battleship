@@ -1,7 +1,7 @@
-import Ship from './ship.js';
-import Move from './move.js';
+const Ship = require('./ship.js');
+const Move = require('./move.js');
 
-export default class Board {
+class Board {
   constructor(numRows, numCols)
   {
     this.numRows = numRows;

@@ -1,6 +1,6 @@
 const readlineSync = require('readline-sync');
 
-export default class HumanPlayer {
+class HumanPlayer {
   constructor(playerName, boardPrototype, gameShipList, gameCommands) {
       this.playerName = playerName;
       this.board = Json.fromJson(Json.stringify(boardPrototype)); //Make a copy of the boardPrototype

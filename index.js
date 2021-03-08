@@ -1,8 +1,8 @@
-import Ship from './ship.js';
-import Move from './move.js';
-import HumanPlayer from './humanPlayer.js';
-import Board from './board.js';
-import ShipBuilder from './shipBuilder.js';
+const Ship = require('./ship.js');
+const Move = require('./move.js');
+const HumanPlayer = require('./humanPlayer.js');
+const Board = require('./board.js');
+const ShipBuilder = require('./shipBuilder.js');
 
 const readlineSync = require('readline-sync');
 
@@ -34,7 +34,7 @@ if(input == 'y' || input == 'Y')
     let isHit = nextPlayer.fireShots(attackPos);
     let gameMove = Move(attackPos[0], attackPos[1], isHit);
     let [x,y] = [attackPos];
-    
+
     console.log(`Player ${currentPlayer.playerName} attacked position ${x}, ${y} of ${next.playerName}. It was a ${isHit ? 'Hit' : 'Miss'}`);
 
     player.movePlayed(gameMove);
