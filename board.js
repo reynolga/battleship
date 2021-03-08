@@ -13,7 +13,7 @@ class Board {
   initializeShips(shipList)
   {
     this.shipList = shipList.map((ship) => ship.deepCopy());
-    this.placeShipsAtRandom();
+    this.placeShipsAtRandom();    
   }
 
   isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
@@ -39,21 +39,25 @@ class Board {
   shotsFired(attackPos){
     let isHit = false;
 
-    for(ship of this.shipList)
+    for(const ship of this.shipList)
     {
       if(ship.isShipInPosition(attackPos))
       {
-        this.fireShotAtBoat(attackPos);
+        ship.fireShotAtBoat(attackPos);
         isHit = true;
       }
     }
 
+    for(const ship of this.shipList)
+    {
+        //console.log(`${ship.shipName} has ${ship.hits.length} of ${ship.positionArray.length} hits`)
+    }
     return isHit;
   }
 
-  isGameOver() {
-    const numSunkShips = this.shipList.reduce((ship) => { return ship.isShipSunk()});
-    return numSunkShips == this.shipList.length;
+  areAllShipsSunk() {
+    const numSunkShips = this.shipList.filter((ship) => { return ship.isShipSunk()});
+    return numSunkShips.length == this.shipList.length;
   }
 
   placeShipsAtRandom() {  
@@ -141,21 +145,27 @@ class Board {
     }
 
     //Shuffle the order.
-    let totalNumbers = this.numRows * this.numCols;
-    for(let r = 0; r < (totalNumbers); r++){
-      let tempIndex = this.getRandomInteger(0, totalNumbers);
-      randomMoves.swap(r, tempIndex);      
-    }
+    // let totalNumbers = this.numRows * this.numCols;
+    // for(let r = 0; r < (totalNumbers); r++){
+    //   let tempIndex = this.getRandomInteger(0, totalNumbers);
+    //   randomMoves.swap(r, tempIndex);      
+    // }
 
     return randomMoves;
   }
-   
+  
+  addMove(move){
+    this.moveList.push(move);
+  }
+
   deepCopy(){
     const board = new Board(this.numRows, this.numCols);
     board.shipList = this.shipList.map((ship) => ship.deepCopy());
     board.moveList = this.moveList.map((move) => move.deepCopy());
     return board; 
   }
+  
+
   
 }
 

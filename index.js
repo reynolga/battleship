@@ -11,7 +11,7 @@ const boardPrototype = new Board(10, 10);
 const gameShipList = new ShipBuilder().buildGameShips();
 const gameCommands = ['Q', 'q', 'Y', 'y', 'N', 'n'];
 
-const player1 = new HumanPlayer('Player1', boardPrototype, gameShipList, gameCommands);
+const player1 = new ComputerPlayer('Player1', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
 const player2 = new ComputerPlayer('Player2', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
 
 const playerList = [player1, player2];
@@ -25,34 +25,40 @@ if(input == 'y' || input == 'Y')
   let gameOver = false; //
   while(!gameOver)
   {
-    [currentPlayer, nextPlayer] = [nextPlayer, getNextPlayer(currentPlayer)];
+    currentPlayer = nextPlayer;
+    nextPlayer = getNextPlayer(currentPlayer, playerList);
 
     if(nextPlayer == undefined) { console.error('Could not find next player'); break;}
     let attackPos = currentPlayer.takeTurn();
 
-    if(gameCommands.has(attackPos)) { break;}
+    if(gameCommands.includes(attackPos)) { break;}
 
     let isHit = nextPlayer.fireShots(attackPos);
-    let gameMove = Move(attackPos[0], attackPos[1], isHit);
-    let [x,y] = [attackPos];
+    let gameMove = new Move(attackPos[0], attackPos[1], isHit);   
 
-    console.log(`Player ${currentPlayer.playerName} attacked position ${x}, ${y} of ${next.playerName}. It was a ${isHit ? 'Hit' : 'Miss'}`);
+    currentPlayer.movePlayed(gameMove);
+    if(isHit){
+    console.log(`${currentPlayer.playerName} attacked position (${gameMove.X}, ${gameMove.Y}) of ${nextPlayer.playerName}. It was a ${isHit ? 'Hit' : 'Miss'}`);
+    }
+    gameOver = nextPlayer.areAllShipsSunk();
 
-    player.movePlayed(gameMove);
+    if(gameOver) { console.log(`${currentPlayer.playerName} is the Winner!`)}
+
+    //Is winner?
   }
 }
 
-function getNextPlayer(currentPlayer)
+function getNextPlayer(currentPlayer, playerList)
 {
-  let currentIndex = this.playerList.findIndex(player => {return player === currentPlayer});
+  let currentIndex = playerList.findIndex((player) => {return player === currentPlayer});
 
-  if(currentIndex === this.playerList.length-1)
+  if(currentIndex === playerList.length-1)
   {
-    const firstPlayer = this.playerList[0];
+    const firstPlayer = playerList[0];
     return firstPlayer;
   }
   else{
-    const nextPlayer = this.playerList[currentIndex+1];
+    const nextPlayer = playerList[currentIndex+1];
     return nextPlayer;
   }
 

@@ -2,14 +2,14 @@
 class Move {
   constructor(posX, posY, hit)
   {
-    this.posX = posX;
-    this.posY = posY;
+    this.X = posX;
+    this.Y = posY;
     this.hit = hit;
   }
 
   deepCopy()
   {
-    return new Move(this.posX, this.posY, this.hit);
+    return new Move(this.X, this.Y, this.hit);
   }
 }
 

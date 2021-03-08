@@ -8,25 +8,30 @@ class Ship {
   }
 
   isShipInPosition(aPosition) {
-    if(aPosition.length != 2 || aPosition == undefined) { 
+    if(aPosition == undefined || aPosition.length != 2 || aPosition == undefined) { 
       console.error(`Wrong or unexpected position array: ${aPosition}`);
       return false;
     }
 
-    let result = this.positionArray.filter(([pos1, pos2]) => {return pos1=== aPosition[0] && pos2 === aPosition[1]});
+    let result = this.positionArray.filter((pos) => {return (pos[0]=== aPosition[0] && pos[1] === aPosition[1]);});
     let bIsShipInPosition = result.length > 0;
     return bIsShipInPosition;
   }
 
   fireShotAtBoat(aPosition)
   {
-    if(isShipInPosition(aPosition)){
-      setHit(aPosition);
+    if(this.isShipInPosition(aPosition)){
+      this.setHit(aPosition);
     }
   }
 
-  setHit(aPosition) {    
-    this.hits.push(aPosition);     
+  setHit(aPosition) { 
+    let result = this.hits.find((item) => {return (item[0] === aPosition[0] && item[1] === aPosition[1])});
+
+    if(result === undefined){
+      this.hits.push(aPosition);   
+      console.log(`Ship hit at ${aPosition}, ${this.hits.length} of ${this.positionArray.length}`);  
+    }
   }
 
   isShipSunk(){
@@ -36,7 +41,7 @@ class Ship {
   deepCopy(){
     const ship = new Ship(this.shipName, this.shipLength);
     ship.positionArray = [...this.positionArray];
-    ship.hits = this.hits;
+    ship.hits = [...this.hits];
     this.positionArray= [];            //Array of boat position [[1,2], [2,2], [2,3]]
      
     return ship;

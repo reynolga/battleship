@@ -1,5 +1,6 @@
 const readlineSync = require('readline-sync');
 const Board = require('./board.js');
+const Move = require('./move.js');
 
 class HumanPlayer {
   constructor(playerName, boardPrototype, gameShipList, gameCommands) {
@@ -23,7 +24,7 @@ class HumanPlayer {
     let input = readlineSync.question('Fire a shot at a enemy boat with coordinates like \'1,2\' or press \'q\' to quit: ');
     
     //Check for game command, like 'q' for quit
-    if(this.gameCommands.has(input)) {return input; }
+    if(this.gameCommands.includes(input)) {return input; }
     
     let [attackX, attackY] = this.parseInput(input);
 
@@ -53,7 +54,12 @@ class HumanPlayer {
   }
 
   movePlayed(move){
-    this.moveList.add(move); 
+    this.board.addMove(move); 
+  }
+
+  areAllShipsSunk()
+  {
+    return this.board.areAllShipsSunk()
   }
 }
 
