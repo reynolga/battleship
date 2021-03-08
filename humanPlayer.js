@@ -1,11 +1,12 @@
 const readlineSync = require('readline-sync');
+const Board = require('./board.js');
 
 class HumanPlayer {
   constructor(playerName, boardPrototype, gameShipList, gameCommands) {
       this.playerName = playerName;
-      this.board = Json.fromJson(Json.stringify(boardPrototype)); //Make a copy of the boardPrototype
+      this.board = boardPrototype.deepCopy();
       this.gameCommands = gameCommands;
-      initialize(gameShipList);
+      this.initialize(gameShipList);
   }
 
   initialize(shipList) {
@@ -24,7 +25,7 @@ class HumanPlayer {
     //Check for game command, like 'q' for quit
     if(this.gameCommands.has(input)) {return input; }
     
-    let [attackX, attackY] = parseInput(input);
+    let [attackX, attackY] = this.parseInput(input);
 
     if((attackX != NaN || 
        attackY != Nan || 

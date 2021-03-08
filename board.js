@@ -12,7 +12,7 @@ class Board {
   
   initializeShips(shipList)
   {
-    this.shipList = Json.fromJson(Json.stringify(shipList)); //Need to copy the data. Don't want a reference
+    this.shipList = this.shipList.map((ship) => ship.deepCopy());
     placeShipsAtRandom();
   }
 
@@ -150,9 +150,13 @@ class Board {
 
     return randomMoves;
   }
-
-    
-
+   
+  deepCopy(){
+    const board = new Board(this.numRows, this.numCols);
+    board.shipList = this.shipList.map((ship) => ship.deepCopy());
+    board.moveList = this.moveList.map((move) => move.deepCopy());
+    return board; 
+  }
   
 }
 

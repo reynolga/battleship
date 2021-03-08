@@ -33,6 +33,15 @@ class Ship {
     return this.hits.length == this.positionArray.length;
   }   
 
+  deepCopy(){
+    const ship = new Ship(this.shipName, this.shipLength);
+    ship.positionArray = [...this.positionArray];
+    ship.hits = this.hits;
+    this.positionArray= [];            //Array of boat position [[1,2], [2,2], [2,3]]
+     
+    return ship;
+  }
+
   };
 
   module.exports = Ship;
