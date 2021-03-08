@@ -18,9 +18,15 @@ export default class Ship {
     return bIsShipInPosition;
   }
 
+  fireShotAtBoat(aPosition)
+  {
+    if(isShipInPosition(aPosition)){
+      setHit(aPosition);
+    }
+  }
+
   setHit(aPosition) {    
-    this.hits.push(aPosition);        
-    this.sunk = isShipSunk();
+    this.hits.push(aPosition);     
   }
 
   isShipSunk(){
