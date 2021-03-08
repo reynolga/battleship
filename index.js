@@ -1,6 +1,7 @@
 const Ship = require('./ship.js');
 const Move = require('./move.js');
 const HumanPlayer = require('./humanPlayer.js');
+const ComputerPlayer = require('./computerPlayer.js');
 const Board = require('./board.js');
 const ShipBuilder = require('./shipBuilder.js');
 

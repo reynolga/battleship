@@ -8,7 +8,7 @@ class Ship {
   }
 
   isShipInPosition(aPosition) {
-    if(aPosition.length != 2 || aPosition == Undefined) { 
+    if(aPosition.length != 2 || aPosition == undefined) { 
       console.error(`Wrong or unexpected position array: ${aPosition}`);
       return false;
     }

@@ -12,8 +12,8 @@ class Board {
   
   initializeShips(shipList)
   {
-    this.shipList = this.shipList.map((ship) => ship.deepCopy());
-    placeShipsAtRandom();
+    this.shipList = shipList.map((ship) => ship.deepCopy());
+    this.placeShipsAtRandom();
   }
 
   isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
@@ -24,15 +24,14 @@ class Board {
   }
 
   isAnyShipInBoardPosition(x,y) { 
-    const numOfShipsInPosition = this.shipList.reduce(({x,y}) => { return ship.isShipInPosition[x,y]});
-    return numOfShipsInPosition > 0;
+    const shipsInPosition = this.shipList.filter((ship) => { return ship.isShipInPosition([x,y])});
+    return shipsInPosition.length > 0;
   }
 
   isAnyShipsInBoardPositions(posList){
     
-    for(pos of posList) {
-      const [x,y] = pos;
-      if(isAnyShipInBoardPosition(x,y)) {return true;}
+    for(const [x,y] of posList) {      
+      if(this.isAnyShipInBoardPosition(x,y)) {return true;}
     }
     return false;
   }
@@ -44,7 +43,7 @@ class Board {
     {
       if(ship.isShipInPosition(attackPos))
       {
-        fireShotAtBoat(attackPos);
+        this.fireShotAtBoat(attackPos);
         isHit = true;
       }
     }
@@ -58,18 +57,18 @@ class Board {
   }
 
   placeShipsAtRandom() {  
-    for(ship of this.shipList) {
+    for(const ship of this.shipList) {
       let shipPlaced = false; 
       let failSafeCounter = 0;
 
       while(!shipPlaced){
-        let direction = generateRandomDirection();        
-        const [startX, startY] = getStartCoordinates(direction, ship.shipLength);
-        let shipCoordinates = generateCoordinates(startX, startY, ship.length, direction);
-        let isAlreadyOccupied = !isAnyShipsInBoardPositions(shipCoordinates);
+        let direction = this.generateRandomDirection();        
+        const [startX, startY] = this.getStartCoordinates(direction, ship.shipLength);
+        let shipCoordinates = this.generateCoordinates(startX, startY, ship.shipLength, direction);
+        let isAlreadyOccupied = this.isAnyShipsInBoardPositions(shipCoordinates);
 
         if(!isAlreadyOccupied) {
-          ship.positionArray = shipCoordinates;
+          ship.positionArray = [...shipCoordinates];
           shipPlaced = true;
         }
         
@@ -85,10 +84,10 @@ class Board {
   getStartCoordinates(direction, shipLength){
     if(direction === 'horizontal')
     {
-      return [getRandomInteger(0, this.numRows - shipLength), getRandomInteger(0, this.numCols)];
+      return [this.getRandomInteger(0, this.numRows - shipLength), this.getRandomInteger(0, this.numCols)];
     }
     else {
-      return [getRandomInteger(0, this.numRows), getRandomInteger(0, this.numCols - shipLength)];
+      return [this.getRandomInteger(0, this.numRows), this.getRandomInteger(0, this.numCols - shipLength)];
     }
   }
 
@@ -97,7 +96,7 @@ class Board {
   }
 
   generateRandomDirection() {  
-    x = (Math.floor(Math.random() * 2) == 0);
+    let x = (Math.floor(Math.random() * 2) == 0);
     if(x){
         return 'horizontal';
     }else{
@@ -115,9 +114,9 @@ class Board {
         coordinates.push([i, posY]);
       }
     }else {                                               //vertical, increment y
-      for(let i = posY; posY < posY + shipLength; i++)
+      for(let i = posY; i < posY + shipLength; i++)
       {
-        coordinates.push(posX, i);
+        coordinates.push([posX, i]);
       }
     }
     
@@ -144,7 +143,7 @@ class Board {
     //Shuffle the order.
     let totalNumbers = this.numRows * this.numCols;
     for(let r = 0; r < (totalNumbers); r++){
-      let tempIndex = getRandomInteger(0, totalNumbers);
+      let tempIndex = this.getRandomInteger(0, totalNumbers);
       randomMoves.swap(r, tempIndex);      
     }
 

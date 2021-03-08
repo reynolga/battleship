@@ -1,4 +1,4 @@
-//const HumanPlayer = requires('./humanPlayer.js');
+const HumanPlayer = require('./humanPlayer.js');
 
 class ComputerPlayer extends HumanPlayer {  
   constructor(playerName, boardPrototype, gameShipList, gameMoves, gameCommands) {
