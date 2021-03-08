@@ -62,8 +62,8 @@ class Board {
       let shipPlaced = false; 
       let failSafeCounter = 0;
 
-      while(!shipPlaced)
-        const direction = generateRandomDirection();        
+      while(!shipPlaced){
+        let direction = generateRandomDirection();        
         const [startX, startY] = getStartCoordinates(direction, ship.shipLength);
         let shipCoordinates = generateCoordinates(startX, startY, ship.length, direction);
         let isAlreadyOccupied = !isAnyShipsInBoardPositions(shipCoordinates);
@@ -78,7 +78,8 @@ class Board {
           break;
         }
         failSafeCounter++;
-    }  
+      }  
+    }
   }
 
   getStartCoordinates(direction, shipLength){
@@ -102,7 +103,6 @@ class Board {
     }else{
         return 'vertical';
     }
-    return '';
   }
 
   generateCoordinates(posX, posY, shipLength, direction) //startPosition is [x,y]
@@ -155,3 +155,5 @@ class Board {
 
   
 }
+
+module.exports = Board;

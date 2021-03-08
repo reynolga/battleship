@@ -14,3 +14,5 @@ class ShipBuilder {
   }
 
 }
+
+module.exports = ShipBuilder;

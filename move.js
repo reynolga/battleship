@@ -7,3 +7,5 @@ class Move {
     this.hit = hit;
   }
 }
+
+module.exports = Move;

@@ -12,3 +12,5 @@ class ComputerPlayer extends HumanPlayer {
   }
 
 }
+
+module.exports = ComputerPlayer;

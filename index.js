@@ -6,12 +6,12 @@ const ShipBuilder = require('./shipBuilder.js');
 
 const readlineSync = require('readline-sync');
 
-const boardPrototype = Board(10, 10);
-const gameShipList = ShipBuilder().buildGameShips();
+const boardPrototype = new Board(10, 10);
+const gameShipList = new ShipBuilder().buildGameShips();
 const gameCommands = ['Q', 'q', 'Y', 'y', 'N', 'n'];
 
-const player1 = HumanPlayer('Player1', boardPrototype, gameShipList, gameCommands);
-const player2 = ComputerPlayer('Player2', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
+const player1 = new HumanPlayer('Player1', boardPrototype, gameShipList, gameCommands);
+const player2 = new ComputerPlayer('Player2', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
 
 const playerList = [player1, player2];
 
