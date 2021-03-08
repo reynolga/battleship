@@ -13,8 +13,10 @@ const gameCommands = ['Q', 'q', 'Y', 'y', 'N', 'n'];
 
 const player1 = new ComputerPlayer('Player1', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
 const player2 = new ComputerPlayer('Player2', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
+const player3 = new ComputerPlayer('Player3', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
+const player4 = new ComputerPlayer('Player4', boardPrototype, gameShipList, boardPrototype.generateListOfRandomMoves(), gameCommands);
 
-const playerList = [player1, player2];
+const playerList = [player1, player2, player3, player4];
 
 let input = readlineSync.question('Welcome to battleShip, press \'y\' to start: ');
 let currentPlayer = playerList[0];
