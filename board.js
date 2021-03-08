@@ -123,14 +123,14 @@ export default class Board {
     //Create ordered list 
     for(let i = 0; i < this.numRows; i++){
       for(let j = 0; j < this.numCols; j++){
-        randomeMoves.push([i,j]);
+        randomMoves.push([i,j]);
       }
     }
 
     //Shuffle the order.
     for(let r = 0; r < (this.numRows * this.numCols); r++){
       let tempIndex = getRandomInteger(0, this.numRows);
-      randomeMoves.swap(r, tempIndex);      
+      randomMoves.swap(r, tempIndex);      
     }
 
     return randomMoves;
