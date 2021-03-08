@@ -145,11 +145,11 @@ class Board {
     }
 
     //Shuffle the order.
-    // let totalNumbers = this.numRows * this.numCols;
-    // for(let r = 0; r < (totalNumbers); r++){
-    //   let tempIndex = this.getRandomInteger(0, totalNumbers);
-    //   randomMoves.swap(r, tempIndex);      
-    // }
+    let totalNumbers = this.numRows * this.numCols;
+    for(let r = 0; r < (totalNumbers); r++){
+      let tempIndex = this.getRandomInteger(0, totalNumbers);
+      randomMoves.swap(r, tempIndex);      
+    }
 
     return randomMoves;
   }
