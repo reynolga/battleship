@@ -20,6 +20,8 @@ class HumanPlayer {
     let counter = 0;
     const maxNumOfTries = 10;
 
+    this.board.printBoard();
+
     while(!validMove){
     let input = readlineSync.question('Fire a shot at a enemy boat with coordinates like \'1,2\' or press \'q\' to quit: ');
     
@@ -28,13 +30,14 @@ class HumanPlayer {
     
     let [attackX, attackY] = this.parseInput(input);
 
-    if((attackX != NaN || 
-       attackY != Nan || 
-       !this.board.hasMoveBeenPlayed([attackX, attackY]))) { //try again
+    if(!isNaN(attackX) && !isNaN(attackY)) {
+      if(!this.board.hasMoveBeenPlayed([attackX, attackY])) { 
         return [attackX, attackY];
+      }
     }
 
     if(counter > maxNumOfTries) { break;}
+    console.log(`${input} is not valid. Please try again with coordinates like \'6,3\'`);
     counter++;
   }
 
@@ -46,6 +49,10 @@ class HumanPlayer {
     //Convert 1,2 => [1, 2]
     let aInput = input.split(',');  
     let [attackX, attackY] = [parseInt(aInput[0]), parseInt(aInput[1])];
+    
+    if(attackX == undefined) { attackX == NaN;}
+    if(attackY == undefined) { attackY == NaN;}
+
     return [attackX, attackY];
   }
 

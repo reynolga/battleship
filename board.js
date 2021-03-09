@@ -167,10 +167,10 @@ class Board {
 
   printDivider() {  console.log('_'.repeat(5*(this.numCols-1)-1));  }
   
-  printHeader(emptySpace) { 
+  printHeader() { 
     this.printDivider();
     //Print header
-    let row = emptySpace;
+    let row = this.formatGrid(' ');
     for(let j = 0; j < this.numCols; j++){ 
       row += ` ${j} |`;      
     }
@@ -180,17 +180,17 @@ class Board {
 
   printBoard()
   {
-    const emptySpace = '   |';
+    const emptySpace = this.formatGrid(' ');
     this.printHeader(emptySpace);
 
     let row = emptySpace;
     for(let i = 0; i < this.numRows; i++)
     {
       //Print Row Column
-      row = ` ${i} |`;
+      row = this.formatGrid(i);
 
       for(let j = 0; j < this.numCols; j++){
-        let hit = this.getGridItemString(i,j, emptySpace);
+        let hit = this.getGridItemString(i,j);
         row += hit;
       }
 
@@ -201,17 +201,17 @@ class Board {
   
   formatGrid(input) { return ` ${input} |`;}
 
-  getGridItemString(x,y, emptySpace){
+  getGridItemString(x,y){
     let index = this.moveList.findIndex((move) => { return move.X === x && move.Y === y });
     
     let stringResult = '';
 
-    if(index === -1) {        return emptySpace;}
-    if(index > 0) { 
+    if(index === -1) {        return this.formatGrid(' ');}
+    if(index >= 0) { 
       if(this.moveList[index].hit) { return this.formatGrid('X'); } 
       else {                         return this.formatGrid('O'); } 
     }  
-    else{ return emptySpace;}
+    else{ return formatGrid(' ');}
   }
 }
 

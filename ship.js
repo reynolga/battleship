@@ -30,7 +30,7 @@ class Ship {
 
     if(result === undefined){
       this.hits.push(aPosition);   
-      console.log(`Ship hit at ${aPosition}, ${this.hits.length} of ${this.positionArray.length}`);  
+      //console.log(`Ship hit at ${aPosition}, ${this.hits.length} of ${this.positionArray.length}`);  
     }
   }
 
