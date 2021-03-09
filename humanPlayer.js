@@ -23,23 +23,24 @@ class HumanPlayer {
     this.board.printBoard();
 
     while(!validMove){
-    let input = readlineSync.question('Fire a shot at a enemy boat with coordinates like \'1,2\' or press \'q\' to quit: ');
-    
-    //Check for game command, like 'q' for quit
-    if(this.gameCommands.includes(input)) {return input; }
-    
-    let [attackX, attackY] = this.parseInput(input);
+      let input = readlineSync.question('Fire a shot at a enemy boat with coordinates like \'1,2\' or press \'q\' to quit: ');
+      
+      //Check for game command, like 'q' for quit
+      if(this.gameCommands.includes(input)) {return input; }
+      
+      let [attackX, attackY] = this.parseInput(input);
 
-    if(!isNaN(attackX) && !isNaN(attackY)) {
-      if(!this.board.hasMoveBeenPlayed([attackX, attackY])) { 
-        return [attackX, attackY];
+      if(!isNaN(attackX) && !isNaN(attackY)) {
+        if(!this.board.hasMoveBeenPlayed([attackX, attackY])) { 
+          return [attackX, attackY];
+        }
+        else { console.log('Move has already been played. Try again.')}
       }
-    }
 
-    if(counter > maxNumOfTries) { break;}
-    console.log(`${input} is not valid. Please try again with coordinates like \'6,3\'`);
-    counter++;
-  }
+      if(counter > maxNumOfTries) { break;}
+      console.log(`${input} is not valid. Please try again with coordinates like \'6,3\'`);
+      counter++;
+    }
 
     return [undefined, undefined];
   }

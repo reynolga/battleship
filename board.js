@@ -23,7 +23,7 @@ class Board {
 
   hasMoveBeenPlayed(move){
     let playedMove = this.moveList.filter(({x,y}) => { return move.X === x && move.Y === y })
-    return playedMove.length > 1; //Then the move has been played.
+    return playedMove.length === 1; //Then the move has been played.
   }
 
   isAnyShipInBoardPosition(x,y) { 
@@ -31,8 +31,7 @@ class Board {
     return shipsInPosition.length > 0;
   }
 
-  isAnyShipsInBoardPositions(posList){
-    
+  isAnyShipsInBoardPositions(posList){    
     for(const [x,y] of posList) {      
       if(this.isAnyShipInBoardPosition(x,y)) {return true;}
     } 
@@ -48,6 +47,7 @@ class Board {
       {
         ship.fireShotAtBoat(attackPos);
         isHit = true;
+        break; //Only 1 boat can be hit
       }
     }
   
