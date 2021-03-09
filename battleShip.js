@@ -32,7 +32,7 @@ class BattleShip {
         nextPlayer = this.getNextPlayer(currentPlayer, battleShipPlayerList);
 
         if(nextPlayer == undefined) { console.error('Could not find next player'); break;}
-        let attackPos = currentPlayer.takeTurn();
+        let attackPos = currentPlayer.getAttackPosition();
     
         if(attackPos === undefined) { console.error('Undefined move'); break;}
         if(gameCommands.includes(attackPos)) { break;}
@@ -44,11 +44,10 @@ class BattleShip {
        
         console.log(`${currentPlayer.playerName} attacked position (${gameMove.X}, ${gameMove.Y}) of ${nextPlayer.playerName}. It was a ${isHit ? 'Hit' : 'Miss'}`);        
 
-        gameOver = nextPlayer.areAllShipsSunk();
-
-        if(gameOver) { 
+        if(nextPlayer.areAllShipsSunk()) { 
           console.log(`${currentPlayer.playerName} is the Winner!`);
           currentPlayer.board.printBoard();
+          gameOver = true;
         }
         
       }
@@ -70,9 +69,7 @@ class BattleShip {
     else{
       const nextPlayer = playerList[currentIndex+1];
       return nextPlayer;
-    }
-
-    return undefined;  
+    } 
   }
 }
 

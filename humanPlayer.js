@@ -14,7 +14,7 @@ class HumanPlayer {
       this.board.initializeShips(shipList);
   }
 
-  takeTurn() {
+  getAttackPosition() {
     //get input
     let validMove = false;
     let counter = 0;

@@ -35,7 +35,7 @@ class Board {
     
     for(const [x,y] of posList) {      
       if(this.isAnyShipInBoardPosition(x,y)) {return true;}
-    }
+    } 
     return false;
   }
 

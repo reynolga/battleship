@@ -26,12 +26,7 @@ class Ship {
   }
 
   setHit(aPosition) { 
-    let result = this.hits.find((item) => {return (item[0] === aPosition[0] && item[1] === aPosition[1])});
-
-    if(result === undefined){
-      this.hits.push(aPosition);   
-      //console.log(`Ship hit at ${aPosition}, ${this.hits.length} of ${this.positionArray.length}`);  
-    }
+      this.hits.push(aPosition);       
   }
 
   isShipSunk(){
@@ -41,9 +36,7 @@ class Ship {
   deepCopy(){
     const ship = new Ship(this.shipName, this.shipLength);
     ship.positionArray = [...this.positionArray];
-    ship.hits = [...this.hits];
-    this.positionArray= [];            //Array of boat position [[1,2], [2,2], [2,3]]
-     
+    ship.hits = [...this.hits];     
     return ship;
   }
 

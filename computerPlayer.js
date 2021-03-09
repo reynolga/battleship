@@ -6,7 +6,7 @@ class ComputerPlayer extends HumanPlayer {
     this.gameMoves = new Set(gameMoves).values();
   }
 
-  takeTurn() {
+  getAttackPosition() {
     //Give next move automatically    
     return this.gameMoves.next().value;
   }

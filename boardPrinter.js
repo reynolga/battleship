@@ -9,25 +9,26 @@ class BoardPrinter {
   
   printHeader() { 
     this.printDivider();
+
     //Print header
-    let row = this.formatGrid(' ');
+    let headerRow = this.formatGridSquare(' ');
     for(let j = 0; j < this.numCols; j++){ 
-      row += ` ${j} |`;      
+      headerRow += this.formatGridSquare(j);
     }
-    console.log(row);
+    console.log(headerRow);
+
     this.printDivider();
   }
 
   printBoard(moveList)
   {
-    const emptySpace = this.formatGrid(' ');
     this.printHeader();
 
-    let row = emptySpace;
+    let row = this.formatGridSquare(' ');;
     for(let i = 0; i < this.numRows; i++)
     {
-      //Print Row Column
-      row = this.formatGrid(i);
+      //Print Row number
+      row = this.formatGridSquare(i);
 
       for(let j = 0; j < this.numCols; j++){
         let hit = this.getGridItemString(i,j, moveList);
@@ -39,19 +40,17 @@ class BoardPrinter {
     }
   }
   
-  formatGrid(input) { return ` ${input} |`;}
+  formatGridSquare(input) { return ` ${input} |`;}
 
   getGridItemString(x,y, moveList){
     let index = moveList.findIndex((move) => { return move.X === x && move.Y === y });
     
-    let stringResult = '';
-
-    if(index === -1) {        return this.formatGrid(' ');}
+    if(index === -1) {          return this.formatGridSquare(' ');}
     else if(index >= 0) { 
-      if(moveList[index].hit) { return this.formatGrid('X'); } 
-      else {                         return this.formatGrid('O'); } 
+      if(moveList[index].hit) { return this.formatGridSquare('X'); } 
+      else {                    return this.formatGridSquare('O'); } 
     }  
-    else{ return formatGrid(' ');}
+    else{                       return this.formatGridSquare(' ');}
   }
 
 }
