@@ -19,7 +19,7 @@ class Board {
   isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
 
   hasMoveBeenPlayed(move){
-    let playedMove = this.moveList.filter(({x,y}) => { return move.posX === x && move.posy === y })
+    let playedMove = this.moveList.filter(({x,y}) => { return move.X === x && move.Y === y })
     return playedMove.length > 1; //Then the move has been played.
   }
 
@@ -164,9 +164,55 @@ class Board {
     board.moveList = this.moveList.map((move) => move.deepCopy());
     return board; 
   }
-  
 
+  printDivider() {  console.log('_'.repeat(5*(this.numCols-1)-1));  }
   
+  printHeader(emptySpace) { 
+    this.printDivider();
+    //Print header
+    let row = emptySpace;
+    for(let j = 0; j < this.numCols; j++){ 
+      row += ` ${j} |`;      
+    }
+    console.log(row);
+    this.printDivider();
+  }
+
+  printBoard()
+  {
+    const emptySpace = '   |';
+    this.printHeader(emptySpace);
+
+    let row = emptySpace;
+    for(let i = 0; i < this.numRows; i++)
+    {
+      //Print Row Column
+      row = ` ${i} |`;
+
+      for(let j = 0; j < this.numCols; j++){
+        let hit = this.getGridItemString(i,j, emptySpace);
+        row += hit;
+      }
+
+      console.log(row);
+      this.printDivider(emptySpace);
+    }
+  }
+  
+  formatGrid(input) { return ` ${input} |`;}
+
+  getGridItemString(x,y, emptySpace){
+    let index = this.moveList.findIndex((move) => { return move.X === x && move.Y === y });
+    
+    let stringResult = '';
+
+    if(index === -1) {        return emptySpace;}
+    if(index > 0) { 
+      if(this.moveList[index].hit) { return this.formatGrid('X'); } 
+      else {                         return this.formatGrid('O'); } 
+    }  
+    else{ return emptySpace;}
+  }
 }
 
 module.exports = Board;
