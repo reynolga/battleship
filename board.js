@@ -181,7 +181,7 @@ class Board {
   printBoard()
   {
     const emptySpace = this.formatGrid(' ');
-    this.printHeader(emptySpace);
+    this.printHeader();
 
     let row = emptySpace;
     for(let i = 0; i < this.numRows; i++)
