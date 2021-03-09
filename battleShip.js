@@ -33,7 +33,8 @@ class BattleShip {
 
         if(nextPlayer == undefined) { console.error('Could not find next player'); break;}
         let attackPos = currentPlayer.takeTurn();
-        
+    
+        if(attackPos === undefined) { console.error('Undefined move'); break;}
         if(gameCommands.includes(attackPos)) { break;}
 
         let isHit = nextPlayer.fireShots(attackPos);
@@ -42,7 +43,6 @@ class BattleShip {
         currentPlayer.movePlayed(gameMove);
        
         console.log(`${currentPlayer.playerName} attacked position (${gameMove.X}, ${gameMove.Y}) of ${nextPlayer.playerName}. It was a ${isHit ? 'Hit' : 'Miss'}`);        
-        
 
         gameOver = nextPlayer.areAllShipsSunk();
 

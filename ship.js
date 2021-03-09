@@ -35,7 +35,7 @@ class Ship {
   }
 
   isShipSunk(){
-    return this.hits.length == this.positionArray.length;
+    return (this.hits.length > 0 && this.hits.length == this.positionArray.length);
   }   
 
   deepCopy(){
