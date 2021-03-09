@@ -46,7 +46,7 @@ class BattleShip {
 
         if(nextPlayer.areAllShipsSunk()) { 
           console.log(`${currentPlayer.playerName} is the Winner!`);
-          currentPlayer.board.printBoard();
+          currentPlayer.printBoard();
           gameOver = true;
         }
         

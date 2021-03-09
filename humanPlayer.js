@@ -69,6 +69,11 @@ class HumanPlayer {
   {
     return this.board.areAllShipsSunk()
   }
+
+  printBoard()
+  {
+    return this.board.printBoard();
+  }
 }
 
 module.exports = HumanPlayer;
