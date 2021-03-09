@@ -1,6 +1,7 @@
 const Ship = require('./ship.js');
 const Move = require('./move.js');
 const BoardShipPlacerHelper = require('./boardShipPlacerHelper.js');
+const BoardPrinter = require('./boardPrinter.js');
 
 class Board {
   constructor(numRows, numCols)
@@ -9,6 +10,7 @@ class Board {
     this.numCols = numCols;
     this.shipList = [];   // List of game ships
     this.moveList = [];   // { Position = [x,y] Hit = '', 'x', 'o'
+    this.boardPrinter = new BoardPrinter(numRows, numCols);
   }
   
   initializeShips(shipList)
@@ -93,53 +95,60 @@ class Board {
     return board; 
   }
 
-  printDivider() {  console.log('_'.repeat(5*(this.numCols-1)-1));  }
+  // printDivider() {  console.log('_'.repeat(5*(this.numCols-1)-1));  }
   
-  printHeader() { 
-    this.printDivider();
-    //Print header
-    let row = this.formatGrid(' ');
-    for(let j = 0; j < this.numCols; j++){ 
-      row += ` ${j} |`;      
-    }
-    console.log(row);
-    this.printDivider();
-  }
+  // printHeader() { 
+  //   this.printDivider();
+  //   //Print header
+  //   let row = this.formatGrid(' ');
+  //   for(let j = 0; j < this.numCols; j++){ 
+  //     row += ` ${j} |`;      
+  //   }
+  //   console.log(row);
+  //   this.printDivider();
+  // }
 
-  printBoard()
-  {
-    const emptySpace = this.formatGrid(' ');
-    this.printHeader();
+   printBoard()
+   {
+    this.boardPrinter.printBoard(this.moveList);
+   }
+  //   const emptySpace = this.formatGrid(' ');
+  //   this.printHeader();
 
-    let row = emptySpace;
-    for(let i = 0; i < this.numRows; i++)
-    {
-      //Print Row Column
-      row = this.formatGrid(i);
+  //   let row = emptySpace;
+  //   for(let i = 0; i < this.numRows; i++)
+  //   {
+  //     //Print Row Column
+  //     row = this.formatGrid(i);
 
-      for(let j = 0; j < this.numCols; j++){
-        let hit = this.getGridItemString(i,j);
-        row += hit;
-      }
+  //     for(let j = 0; j < this.numCols; j++){
+  //       let hit = this.getGridItemString(i,j);
+  //       row += hit;
+  //     }
 
-      console.log(row);
-      this.printDivider(emptySpace);
-    }
-  }
+  //     console.log(row);
+  //     this.printDivider(emptySpace);
+  //   }
+  // }
   
-  formatGrid(input) { return ` ${input} |`;}
+  // formatGrid(input) { return ` ${input} |`;}
 
-  getGridItemString(x,y){
-    let index = this.moveList.findIndex((move) => { return move.X === x && move.Y === y });
+  // getGridItemString(x,y){
+  //   let index = this.moveList.findIndex((move) => { return move.X === x && move.Y === y });
     
-    let stringResult = '';
+  //   let stringResult = '';
 
-    if(index === -1) {        return this.formatGrid(' ');}
-    if(index >= 0) { 
-      if(this.moveList[index].hit) { return this.formatGrid('X'); } 
-      else {                         return this.formatGrid('O'); } 
-    }  
-    else{ return formatGrid(' ');}
+  //   if(index === -1) {        return this.formatGrid(' ');}
+  //   if(index >= 0) { 
+  //     if(this.moveList[index].hit) { return this.formatGrid('X'); } 
+  //     else {                         return this.formatGrid('O'); } 
+  //   }  
+  //   else{ return formatGrid(' ');}
+  // }
+
+  generateListOfRandomMoves()
+  {
+    return BoardShipPlacerHelper.generateListOfRandomMoves(this.numRows, this.numCols);
   }
 }
 
