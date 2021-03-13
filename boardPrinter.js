@@ -20,8 +20,7 @@ class BoardPrinter {
     this.printDivider();
   }
 
-  printBoard(moveList)
-  {
+  printBoard(moveList){
     this.printHeader();
 
     let row = this.formatGridSquare(' ');;

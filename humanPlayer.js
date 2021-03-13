@@ -30,16 +30,16 @@ class HumanPlayer {
       
       [attackX, attackY] = this.parseInput(input);
 
-      if(!isNaN(attackX) && !isNaN(attackY)) {
-        if(!this.board.hasMoveBeenPlayed([attackX, attackY])) { 
-          validMove = true;
-        } else { 
-          console.log('Move has already been played. Try again.');
-        }
-      }else{
+      if(isNaN(attackX) || isNaN(attackY)) { 
         console.log(`${input} is not valid. Please try again with coordinates like \'6,3\'`);
+      } else if (!this.board.isMoveInBoard(attackX, attackY)){
+        console.log(`${input} is not valid. Please try again with coordinates like \'6,3\'`);
+      } else if(this.board.hasMoveBeenPlayed(attackX, attackY)) {
+        console.log('Move has already been played. Try again.');
+      } else {
+        validMove = true;
       }
-
+        
       if(counter > maxNumOfTries) { break;}      
       counter++;
     }

@@ -17,10 +17,12 @@ class Board {
     this.placeShipsAtRandom();    
   }
 
-  isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
+  isMoveInBoard(x, y) { 
+    const isGreaterThanZero = x >= 0 && y >= 0;
+    const isInBoard = x < this.numRows && y < this.numCols;
+    return (isGreaterThanZero && isInBoard); } //0 - based index use less than
 
-  hasMoveBeenPlayed(currentMove){
-    const [x,y] = currentMove; //
+  hasMoveBeenPlayed(x, y){
     let playedMove = this.moveList.filter( (move) => { return (move.X === x && move.Y === y); })
     return playedMove.length === 1; //Then the move has been played.
   }
