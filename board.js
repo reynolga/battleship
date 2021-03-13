@@ -4,25 +4,24 @@ const BoardShipPlacerHelper = require('./boardShipPlacerHelper.js');
 const BoardPrinter = require('./boardPrinter.js');
 
 class Board {
-  constructor(numRows, numCols)
-  {
-    this.numRows = numRows;
-    this.numCols = numCols;
-    this.shipList = [];   // List of game ships
-    this.moveList = [];   // { Position = [x,y] Hit = '', 'x', 'o'
-    this.boardPrinter = new BoardPrinter(numRows, numCols);
+    constructor(numRows, numCols){
+      this.numRows = numRows;
+      this.numCols = numCols;
+      this.shipList = [];   // List of game ships
+      this.moveList = [];   // { Position = [x,y] Hit = '', 'x', 'o'
+      this.boardPrinter = new BoardPrinter(numRows, numCols);
   }
   
-  initializeShips(shipList)
-  {
+  initializeShips(shipList){
     this.shipList = shipList.map((ship) => ship.deepCopy());
     this.placeShipsAtRandom();    
   }
 
   isMoveInBoard(x,y) { return x < numRows && y < numCols; } //0 - based index use less than
 
-  hasMoveBeenPlayed(move){
-    let playedMove = this.moveList.filter(({x,y}) => { return move.X === x && move.Y === y })
+  hasMoveBeenPlayed(currentMove){
+    const [x,y] = currentMove; //
+    let playedMove = this.moveList.filter( (move) => { return (move.X === x && move.Y === y); })
     return playedMove.length === 1; //Then the move has been played.
   }
 
@@ -41,10 +40,8 @@ class Board {
   shotsFired(attackPos){
     let isHit = false;
 
-    for(const ship of this.shipList)
-    {
-      if(ship.isShipInPosition(attackPos))
-      {
+    for(const ship of this.shipList){
+      if(ship.isShipInPosition(attackPos)){
         ship.fireShotAtBoat(attackPos);
         isHit = true;
         break; //Only 1 boat can be hit
@@ -54,12 +51,12 @@ class Board {
     return isHit;
   }
 
-  areAllShipsSunk() {
+  areAllShipsSunk(){
     const numSunkShips = this.shipList.filter((ship) => { return ship.isShipSunk()});
     return numSunkShips.length == this.shipList.length;
   }
 
-  placeShipsAtRandom() {  
+  placeShipsAtRandom(){  
     for(const ship of this.shipList) {
       let shipPlaced = false; 
       let failSafeCounter = 0;
@@ -95,14 +92,11 @@ class Board {
     return board; 
   }
 
-   printBoard()
-   {
+  printBoard(){
     this.boardPrinter.printBoard(this.moveList);
-   }
-  
+  }  
 
-  generateListOfRandomMoves()
-  {
+  generateListOfRandomMoves(){
     return BoardShipPlacerHelper.generateListOfRandomMoves(this.numRows, this.numCols);
   }
 }

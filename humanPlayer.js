@@ -4,14 +4,14 @@ const Move = require('./move.js');
 
 class HumanPlayer {
   constructor(playerName, boardPrototype, gameShipList, gameCommands) {
-      this.playerName = playerName;
-      this.board = boardPrototype.deepCopy();
-      this.gameCommands = gameCommands;
-      this.initialize(gameShipList);
+    this.playerName = playerName;
+    this.board = boardPrototype.deepCopy();
+    this.gameCommands = gameCommands;
+    this.initialize(gameShipList);
   }
 
   initialize(shipList) {
-      this.board.initializeShips(shipList);
+    this.board.initializeShips(shipList);
   }
 
   getAttackPosition() {
@@ -19,7 +19,7 @@ class HumanPlayer {
     let validMove = false;
     let counter = 0;
     const maxNumOfTries = 10;
-
+    let [attackX, attackY] = [undefined, undefined];
     this.board.printBoard();
 
     while(!validMove){
@@ -28,11 +28,11 @@ class HumanPlayer {
       //Check for game command, like 'q' for quit
       if(this.gameCommands.includes(input)) {return input; }
       
-      let [attackX, attackY] = this.parseInput(input);
+      [attackX, attackY] = this.parseInput(input);
 
       if(!isNaN(attackX) && !isNaN(attackY)) {
         if(!this.board.hasMoveBeenPlayed([attackX, attackY])) { 
-          return [attackX, attackY];
+          validMove = true;
         } else { 
           console.log('Move has already been played. Try again.');
         }
@@ -44,7 +44,7 @@ class HumanPlayer {
       counter++;
     }
 
-    return [undefined, undefined];
+    return [attackX, attackY];
   }
  
   parseInput(input) {
@@ -67,13 +67,11 @@ class HumanPlayer {
     this.board.addMove(move); 
   }
 
-  areAllShipsSunk()
-  {
+  areAllShipsSunk(){
     return this.board.areAllShipsSunk()
   }
 
-  printBoard()
-  {
+  printBoard(){
     return this.board.printBoard();
   }
 }

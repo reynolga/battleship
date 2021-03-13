@@ -18,15 +18,14 @@ class Ship {
     return bIsShipInPosition;
   }
 
-  fireShotAtBoat(aPosition)
-  {
+  fireShotAtBoat(aPosition){
     if(this.isShipInPosition(aPosition)){
       this.setHit(aPosition);
     }
   }
 
   setHit(aPosition) { 
-      this.hits.push(aPosition);       
+    this.hits.push(aPosition);       
   }
 
   isShipSunk(){

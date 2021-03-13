@@ -20,14 +20,12 @@ class BattleShip {
 
     let input = readlineSync.question('Welcome to battleShip, press \'y\' to start: ');    
 
-    if(input == 'y' || input == 'Y')
-    {
+    if(input == 'y' || input == 'Y'){
       let currentPlayer = battleShipPlayerList[0];
       let nextPlayer = battleShipPlayerList[0];
       let gameOver = false;
 
-      while(!gameOver)
-      {
+      while(!gameOver){
         currentPlayer = nextPlayer;
         nextPlayer = this.getNextPlayer(currentPlayer, battleShipPlayerList);
 
@@ -57,8 +55,7 @@ class BattleShip {
   }
   
 
-  getNextPlayer(currentPlayer, playerList)
-  {
+  getNextPlayer(currentPlayer, playerList){
     let currentIndex = playerList.findIndex((player) => {return player === currentPlayer});
 
     if(currentIndex === playerList.length-1)
