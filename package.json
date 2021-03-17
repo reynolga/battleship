@@ -1,0 +1,27 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "a battleship game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reynolga/battleship.git"
+  },
+  "keywords": [
+    "javaScript",
+    "fun",
+    "games"
+  ],
+  "author": "Xander Reynolds",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reynolga/battleship/issues"
+  },
+  "homepage": "https://github.com/reynolga/battleship#readme",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
