@@ -3,10 +3,10 @@ class BoardShipPlacerHelper {
   static getStartCoordinates(direction, shipLength, boardRows, boardCols){
     if(direction === 'horizontal')
     {
-      return [this.getRandomInteger(0, boardRows - shipLength), this.getRandomInteger(0, boardCols)];
+      return [this.getRandomInteger(0, (boardRows+1) - shipLength), this.getRandomInteger(0, boardCols)];
     }
     else {
-      return [this.getRandomInteger(0, boardRows), this.getRandomInteger(0, boardCols - shipLength)];
+      return [this.getRandomInteger(0, boardRows), this.getRandomInteger(0, (boardCols+1) - shipLength)];
     }
   }
 
